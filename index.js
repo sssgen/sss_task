@@ -22,14 +22,16 @@ app.post("/api/screen", screenController.getScreen);
 
 const cleanTempFolder = () => {
   const tempPath = path.resolve(__dirname, "temp");
-  fs.readdir(tempPath, (err, files) => {
-    if (err) throw err;
-    files.forEach((file) => {
-      fs.unlink(path.join(tempPath, file), (err) => {
-        if (err) throw err;
+  if (tempPath) {
+    fs.readdir(tempPath, (err, files) => {
+      if (err) throw err;
+      files.forEach((file) => {
+        fs.unlink(path.join(tempPath, file), (err) => {
+          if (err) throw err;
+        });
       });
     });
-  });
+  }
 };
 
 // Clean the temp folder every 5 seconds
